@@ -348,7 +348,7 @@ const retrofitPackages = [
 
 const stories = {
   "BRV001": [
-    { id: "heat", date: "July 19, 2025", name: "G. Rodriguez", age: 72, unit: "6F", text: "It's 94° outside. Inside my apartment, it's 103°. The walls hold the heat—they've been soaking it up since morning. I turned off the lights to avoid another brownout. My inhaler is on the counter. I'll sleep in the chair by the window tonight.", stat: "Top-floor units reach 8-12°F above ambient*", type: "thermal" },
+    { id: "heat", date: "July 19, 2025", name: "G. Rodriguez", age: 72, unit: "6F", text: "It's 94° outside. Inside my apartment, it's over 90°. The walls hold the heat—they've been soaking it up since morning. I turned off the lights to avoid another brownout. My inhaler is on the counter. I'll sleep in the chair by the window tonight.", stat: "Top-floor units reach 8-12°F above ambient*", type: "thermal" },
     { id: "water", date: "Ongoing", name: "M. Thompson", age: 34, unit: "3B", text: "Six months ago, a brown spot appeared on my daughter's ceiling. I filed a complaint. They patched it. It came back larger. Now there's black mold behind her bed. She's had three asthma attacks this year. The repair queue is 200 units deep.", stat: "Avg. repair wait: 127 days*", type: "infra" },
     { id: "cold", date: "Feb 4, 2025", name: "W. Chen", age: 45, unit: "4A", text: "The radiator clangs all night—scalding at 2am, cold by dawn. I sleep in my coat. The windows are original 1948 single-pane. I've taped plastic over them, but the drafts find their way through. My heating bill is $180/month for an apartment that never feels warm.", stat: "1,823 heat complaints (5yr)", type: "thermal" }
   ]
@@ -357,7 +357,7 @@ const stories = {
 // ============================================
 // HELPERS
 // ============================================
-const fmt = n => n >= 1e6 ? `$${(n/1e6).toFixed(1)}M` : n >= 1e3 ? `$${(n/1e3).toFixed(0)}K` : `$${n}`;
+const fmt = n => n >= 1e6 ? `$${(n/1e6).toFixed(1)}M*` : n >= 1e3 ? `$${(n/1e3).toFixed(0)}K*` : `$${n}*`;
 const calcCost = (r, dev) => {
   if (r.basis === "unit") return r.cost_low * dev.unit_count;
   if (r.basis === "bldg") return r.cost_low * dev.building_count;
@@ -1924,14 +1924,14 @@ const ImpactPanel = ({ dev, active }) => {
   const tempD = data.reduce((s,r) => s+r.tempDelta, 0);
   const energyD = data.reduce((s,r) => s+r.energyDelta, 0);
   const cost = data.reduce((s,r) => s+calcCost(r,dev), 0);
-  const baseTemp = 103, newTemp = baseTemp + tempD;
+  const baseTemp = 90, newTemp = baseTemp + tempD;
   const tempColor = newTemp <= 80 ? '#22c55e' : newTemp <= 88 ? '#84cc16' : newTemp <= 95 ? '#eab308' : '#ef4444';
 
   return (
     <div style={{ ...S.card, marginTop:'16px' }}>
       <div style={{ ...S.label, marginBottom:'16px' }}><Tip text="Estimated impact per unit. Costs are planning-level.*">PROJECTED IMPACT*</Tip></div>
       <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'16px' }}>
-        <Tip text="Estimated peak indoor temp on hottest days. Baseline 103°F.*">
+        <Tip text="Estimated peak indoor temp on hottest days. Baseline 90°F+.*">
           <div style={{ background:'#0a0a0a', padding:'16px', border:'1px solid #1f1f1f', borderRadius:'6px', cursor:'help' }}>
             <div style={{ ...S.label, fontSize:'10px', marginBottom:'8px' }}>PEAK INDOOR*</div>
             <div style={{ fontSize:'36px', fontWeight:'700', color:tempColor, ...S.mono }}>{newTemp}°</div>
@@ -2068,7 +2068,7 @@ const PackageSelector = ({ selectedPackage, onSelect, dev, showCustomPanel, acti
                 {pkg.name}
               </div>
               <div style={{ fontSize: '10px', color: isSelected ? pkg.color : colors.text.muted, ...S.mono }}>
-                ${(pkg.costPerUnit / 1000).toFixed(0)}K/unit · {pkg.shortDesc}
+                ${(pkg.costPerUnit / 1000).toFixed(0)}K/unit* · {pkg.shortDesc}
               </div>
             </button>
           );
@@ -2131,20 +2131,20 @@ const PackageSelector = ({ selectedPackage, onSelect, dev, showCustomPanel, acti
 
             {/* Investment */}
             <div>
-              <div style={{ fontSize: '10px', color: colors.text.muted, marginBottom: '12px', letterSpacing: '0.1em' }}>INVESTMENT</div>
+              <div style={{ fontSize: '10px', color: colors.text.muted, marginBottom: '12px', letterSpacing: '0.1em' }}>INVESTMENT*</div>
               <div style={{ fontSize: '32px', fontWeight: '700', color: currentPkg.color, marginBottom: '4px', ...S.mono }}>
-                ${(calcPackageCost(currentPkg, dev) / 1000000).toFixed(1)}M
+                ${(calcPackageCost(currentPkg, dev) / 1000000).toFixed(1)}M*
               </div>
               <div style={{ fontSize: '12px', color: colors.text.muted, marginBottom: '16px' }}>
-                ${calcPackageCostPerUnit(currentPkg, dev).toLocaleString()}/unit
+                ${calcPackageCostPerUnit(currentPkg, dev).toLocaleString()}/unit*
               </div>
               <div style={{ display: 'flex', gap: '24px' }}>
                 <div>
-                  <div style={{ fontSize: '10px', color: colors.text.muted, marginBottom: '4px' }}>TEMP</div>
-                  <div style={{ fontSize: '16px', fontWeight: '600', color: colors.text.primary }}>-{actualTempReduction}°F</div>
+                  <div style={{ fontSize: '10px', color: colors.text.muted, marginBottom: '4px' }}>TEMP REDUCTION*</div>
+                  <div style={{ fontSize: '16px', fontWeight: '600', color: colors.text.primary }}>-{actualTempReduction}°F*</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '10px', color: colors.text.muted, marginBottom: '4px' }}>TIMELINE</div>
+                  <div style={{ fontSize: '10px', color: colors.text.muted, marginBottom: '4px' }}>TIMELINE*</div>
                   <div style={{ fontSize: '16px', fontWeight: '600', color: colors.text.primary }}>{currentPkg.timeline}</div>
                 </div>
               </div>
@@ -2418,12 +2418,12 @@ const Timeline = ({ dev, nta, complaints, demo, activeRetrofits }) => {
       {!hasComprehensive && (
         <div style={{ marginTop: '12px', padding: '12px 16px', background: '#450a0a', borderRadius: '6px', border: '1px solid #7f1d1d', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <div style={{ fontSize: '10px', color: '#fca5a5', ...S.mono, marginBottom: '2px' }}>COST OF INACTION BY 2050</div>
-            <div style={{ fontSize: '9px', color: '#a3a3a3', ...S.mono }}>Increased maintenance, emergency repairs, health costs</div>
+            <div style={{ fontSize: '10px', color: '#fca5a5', ...S.mono, marginBottom: '2px' }}>COST OF INACTION BY 2050*</div>
+            <div style={{ fontSize: '9px', color: '#a3a3a3', ...S.mono }}>Increased maintenance, emergency repairs, health costs*</div>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: '18px', fontWeight: '700', color: '#fca5a5', ...S.mono }}>${(costBy2050 / 1000000).toFixed(1)}M+</div>
-            <div style={{ fontSize: '8px', color: '#737373', ...S.mono }}>${(costPerYear / 1000).toFixed(0)}K/year</div>
+            <div style={{ fontSize: '18px', fontWeight: '700', color: '#fca5a5', ...S.mono }}>${(costBy2050 / 1000000).toFixed(1)}M+*</div>
+            <div style={{ fontSize: '8px', color: '#737373', ...S.mono }}>${(costPerYear / 1000).toFixed(0)}K/year*</div>
           </div>
         </div>
       )}
@@ -2826,7 +2826,7 @@ const DataBreakdown = ({ dev, complaints, nta }) => {
             <div style={{ padding:'12px', background:'#0f1419', borderRadius:'4px', borderLeft:'2px solid #ef4444', marginBottom:'12px' }}>
               <div style={{ fontSize:'10px', fontWeight:'600', color:'#ef4444', marginBottom:'6px' }}>ALIGNMENT STATUS: MISALIGNED</div>
               <div style={{ fontSize:'10px', color:'#8b8b8b', lineHeight:1.6 }}>
-                <strong style={{ color:'#d4d4d4' }}>Thermal:</strong> HVI 5/5, indoor temps regularly above 95°F, 25 heat days far exceeds design capacity. Asthma rate 2x citywide.<br/>
+                <strong style={{ color:'#d4d4d4' }}>Thermal:</strong> HVI 5/5, indoor temps regularly above 90°F+, 25 heat days far exceeds design capacity. Asthma rate 2x citywide.<br/>
                 <strong style={{ color:'#d4d4d4' }}>Infrastructure:</strong> 3,716 complaints (2,777 per 1K units), 1,380 heat/water issues. 78-year-old systems failing.<br/>
                 <strong style={{ color:'#d4d4d4' }}>Social:</strong> 32.4% poverty, 12.8% seniors, 28.4% youth, 13.9% disabled. Limited cooling access, high vulnerability.
               </div>
@@ -4518,6 +4518,7 @@ const StoryMode = ({ dev, nta, complaints, onBack, onSwitchToDashboard }) => {
   const [chapter, setChapter] = useState(0);
   const [showContent, setShowContent] = useState(false);
   const [showElements, setShowElements] = useState({ title: false, subtitle: false, main: false, footer: false });
+  const [era5ViewMode, setEra5ViewMode] = useState('stacked'); // 'avg', 'peak', 'stacked'
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -4568,13 +4569,13 @@ const StoryMode = ({ dev, nta, complaints, onBack, onSwitchToDashboard }) => {
                 lineHeight:0.9,
                 ...S.mono
               }}>
-                <AnimatedNumber target={103} suffix="°F" />
+                <AnimatedNumber target={90} suffix="°F+" />
               </div>
               <div style={{ fontSize:'14px', color:'#fca5a5', marginTop:'12px', letterSpacing:'0.1em', ...S.mono }}>
                 PEAK INDOOR TEMPERATURE
               </div>
               <div style={{ fontSize:'9px', color:'#a3a3a3', marginTop:'8px', ...S.mono }}>
-                Source: <a href="https://www.nyc.gov/site/orr/data/heat.page" target="_blank" rel="noopener" style={{ color:'#a3a3a3', textDecoration:'underline' }}>NYC Heat Vulnerability Study</a> + DOHMH estimates
+                Source: <a href="https://reasonstobecheerful.world/indoor-heatwave-risk-citizen-scientists-harlem/" target="_blank" rel="noopener" style={{ color:'#a3a3a3', textDecoration:'underline' }}>Harlem Heat Project (WE ACT / WNYC)</a> — verified indoor temps in non-AC apartments
               </div>
             </div>
           </div>
@@ -4590,8 +4591,8 @@ const StoryMode = ({ dev, nta, complaints, onBack, onSwitchToDashboard }) => {
             transform: showElements.subtitle ? 'translateY(0)' : 'translateY(20px)',
             transition:'all 0.8s ease-out 0.3s'
           }}>
-            Inside <strong style={{ color:'#fafafa' }}>{dev.name}</strong> during a summer heat wave.<br/>
-            <span style={{ fontSize:'14px', color:'#a3a3a3' }}>No central AC. No escape.</span>
+            Inside <strong style={{ color:'#fafafa' }}>NYCHA housing without AC</strong> during a summer heat wave.<br/>
+            <span style={{ fontSize:'14px', color:'#a3a3a3' }}>No central cooling. No escape.</span>
           </div>
 
           {/* Quick stats row */}
@@ -4643,18 +4644,18 @@ const StoryMode = ({ dev, nta, complaints, onBack, onSwitchToDashboard }) => {
       )
     },
 
-    // SLIDE 2: THE GAP - Temperature mismatch across time (decade by decade)
+    // SLIDE 2: ERA5 VERIFIED DATA - Built for a Different Climate
     {
-      title: "The Gap",
-      bgColor: '#291a04',
+      title: "The Climate",
+      bgColor: '#0a1628',
       content: (
-        <div style={{ textAlign:'center', maxWidth:'900px' }}>
+        <div style={{ textAlign:'center', maxWidth:'950px' }}>
           <h2 style={{
             fontSize:'38px',
             fontWeight:'800',
             marginBottom:'12px',
             letterSpacing:'-0.03em',
-            color:'#fbbf24',
+            color:'#60a5fa',
             opacity: showElements.title ? 1 : 0,
             transform: showElements.title ? 'translateY(0)' : 'translateY(-20px)',
             transition:'all 0.8s ease-out'
@@ -4664,72 +4665,133 @@ const StoryMode = ({ dev, nta, complaints, onBack, onSwitchToDashboard }) => {
 
           <div style={{
             fontSize:'14px',
-            color:'#fde68a',
-            marginBottom:'28px',
+            color:'#93c5fd',
+            marginBottom:'16px',
             opacity: showElements.subtitle ? 1 : 0,
             transition:'all 0.8s ease-out 0.2s'
           }}>
-            Average summer temperature (June-August) in {nta ? Object.keys(ntaData).find(k => ntaData[k] === nta) : 'Brownsville'}, NYC
+            ERA5 reanalysis data for Brooklyn, NYC — June, July, August
           </div>
 
-          {/* Decade-by-decade timeline */}
+          {/* View Mode Toggles */}
+          <div style={{
+            display:'flex',
+            justifyContent:'center',
+            gap:'8px',
+            marginBottom:'20px',
+            opacity: showElements.subtitle ? 1 : 0,
+            transition:'all 0.8s ease-out 0.3s'
+          }}>
+            {[
+              { id: 'avg', label: '24-HR AVG', color: '#3b82f6' },
+              { id: 'peak', label: 'PEAK MAX', color: '#f97316' },
+              { id: 'stacked', label: 'BOTH', color: '#a855f7' },
+            ].map(mode => (
+              <button
+                key={mode.id}
+                onClick={() => setEra5ViewMode(mode.id)}
+                style={{
+                  padding: '8px 16px',
+                  background: era5ViewMode === mode.id ? mode.color : 'rgba(255,255,255,0.1)',
+                  border: `2px solid ${mode.color}`,
+                  borderRadius: '4px',
+                  color: '#fafafa',
+                  fontSize: '10px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  letterSpacing: '0.05em'
+                }}
+              >
+                {mode.label}
+              </button>
+            ))}
+          </div>
+
+          {/* ERA5 Data Visualization */}
           <div style={{
             display:'flex',
             alignItems:'flex-end',
             justifyContent:'center',
-            gap:'8px',
+            gap:'6px',
             marginBottom:'24px',
             opacity: showElements.main ? 1 : 0,
             transform: showElements.main ? 'translateY(0)' : 'translateY(30px)',
             transition:'all 1s ease-out 0.4s'
           }}>
             {[
-              { decade: '1950s', temp: nta.temp_1950s, heatDays: climateByDecade['1950s'].heatDays90, color: '#22c55e', isProjected: false },
-              { decade: '1960s', temp: nta.temp_1960s, heatDays: climateByDecade['1960s'].heatDays90, color: '#22c55e', isProjected: false },
-              { decade: '1980s', temp: nta.temp_1980s, heatDays: climateByDecade['1980s'].heatDays90, color: '#84cc16', isProjected: false },
-              { decade: '2000s', temp: nta.temp_2000s, heatDays: climateByDecade['2000s'].heatDays90, color: '#fbbf24', isProjected: false },
-              { decade: '2020s', temp: nta.temp_2020s, heatDays: climateByDecade['2020s'].heatDays90, color: '#f97316', isProjected: false },
-              { decade: '2050s', temp: nta.temp_2050, heatDays: climateByDecade['2050s'].heatDays90, color: '#ef4444', isProjected: true },
+              { year: '1945', avg: 70.7, peak: 88.4 },
+              { year: '1955', avg: 73.2, peak: 91.3 },
+              { year: '1965', avg: 70.9, peak: 86.0 },
+              { year: '1975', avg: 73.0, peak: 92.0 },
+              { year: '1985', avg: 71.6, peak: 87.7 },
+              { year: '1995', avg: 73.5, peak: 93.0 },
+              { year: '2005', avg: 74.3, peak: 90.8 },
+              { year: '2015', avg: 73.7, peak: 86.8 },
+              { year: '2025', avg: 74.0, peak: 94.0 },
             ].map((era, i) => {
-              const baseHeight = 60;
-              const heightScale = (era.temp - 70) * 18; // Scale based on temp
+              const avgHeight = (era.avg - 68) * 12;
+              const peakHeight = era5ViewMode === 'stacked' ? (era.peak - 68) * 4 : (era.peak - 68) * 8;
+              const isRecent = parseInt(era.year) >= 2020;
+              const showPeak = era5ViewMode === 'peak' || era5ViewMode === 'stacked';
+              const showAvg = era5ViewMode === 'avg' || era5ViewMode === 'stacked';
               return (
-                <div key={i} style={{ textAlign:'center', flex: 1, maxWidth: '120px' }}>
+                <div key={i} style={{ textAlign:'center', flex: 1, maxWidth: '95px' }}>
+                  {/* Peak temp bar */}
+                  {showPeak && (
+                    <div style={{
+                      height: `${peakHeight}px`,
+                      background: era.peak >= 93 ? 'linear-gradient(180deg, #ef4444 0%, #dc2626 100%)' : 'linear-gradient(180deg, #f97316 0%, #ea580c 100%)',
+                      borderRadius: era5ViewMode === 'peak' ? '4px 4px 0 0' : '4px 4px 0 0',
+                      display:'flex',
+                      flexDirection:'column',
+                      justifyContent:'flex-start',
+                      alignItems:'center',
+                      paddingTop:'8px',
+                      border: era.peak >= 93 ? '2px solid #ef4444' : '2px solid #f97316',
+                      borderBottom: era5ViewMode === 'stacked' ? 'none' : '2px solid',
+                      position:'relative',
+                      transition: 'all 0.3s ease'
+                    }}>
+                      <div style={{ fontSize:'14px', fontWeight:'800', color:'#fafafa', textShadow:'0 2px 8px rgba(0,0,0,0.5)' }}>{era.peak.toFixed(0)}°</div>
+                      <div style={{ fontSize:'7px', color:'#fafafa', opacity:0.8, marginTop:'2px' }}>PEAK</div>
+                    </div>
+                  )}
+                  {/* Average temp bar */}
+                  {showAvg && (
+                    <div style={{
+                      height: `${avgHeight}px`,
+                      background: 'linear-gradient(180deg, #3b82f6 0%, #2563eb 100%)',
+                      borderRadius: era5ViewMode === 'avg' ? '4px 4px 0 0' : '0',
+                      display:'flex',
+                      flexDirection:'column',
+                      justifyContent:'flex-start',
+                      alignItems:'center',
+                      paddingTop:'8px',
+                      borderLeft:'2px solid #3b82f6',
+                      borderRight:'2px solid #3b82f6',
+                      borderTop: era5ViewMode === 'avg' ? '2px solid #3b82f6' : 'none',
+                      transition: 'all 0.3s ease'
+                    }}>
+                      <div style={{ fontSize:'12px', fontWeight:'700', color:'#fafafa' }}>{era.avg.toFixed(1)}°</div>
+                      <div style={{ fontSize:'7px', color:'#fafafa', opacity:0.8 }}>AVG</div>
+                    </div>
+                  )}
                   <div style={{
-                    height: `${baseHeight + heightScale}px`,
-                    background: `linear-gradient(180deg, ${era.color} 0%, ${era.color}40 100%)`,
-                    borderRadius:'6px 6px 0 0',
-                    display:'flex',
-                    flexDirection:'column',
-                    justifyContent:'flex-start',
-                    alignItems:'center',
-                    paddingTop:'12px',
-                    border:`2px solid ${era.color}`,
-                    borderBottom:'none',
-                    position:'relative',
-                    opacity: era.isProjected ? 0.85 : 1,
-                    borderStyle: era.isProjected ? 'dashed' : 'solid'
-                  }}>
-                    <div style={{ fontSize:'24px', fontWeight:'800', color:'#fafafa', textShadow:'0 2px 8px rgba(0,0,0,0.5)' }}>{era.temp.toFixed(1)}°F</div>
-                    <div style={{ fontSize:'9px', color:'#fafafa', opacity:0.9, marginTop:'4px' }}>{era.heatDays} days &gt;90°F</div>
-                  </div>
-                  <div style={{
-                    padding:'6px 8px',
+                    padding:'6px 4px',
                     background:'#0f0f0f',
-                    border:`2px solid ${era.color}`,
+                    border: `2px solid ${era5ViewMode === 'peak' ? (era.peak >= 93 ? '#ef4444' : '#f97316') : '#3b82f6'}`,
                     borderTop:'none',
-                    borderRadius:'0 0 6px 6px',
-                    borderStyle: era.isProjected ? 'dashed' : 'solid'
+                    borderRadius:'0 0 4px 4px',
                   }}>
-                    <div style={{ fontSize:'12px', fontWeight:'700', color: era.color }}>{era.decade}</div>
-                    {era.isProjected && <div style={{ fontSize:'8px', color:'#737373' }}>PROJECTED</div>}
+                    <div style={{ fontSize:'11px', fontWeight:'700', color: isRecent ? '#60a5fa' : '#93c5fd' }}>{era.year}</div>
                   </div>
                 </div>
               );
             })}
           </div>
 
-          {/* Delta highlight */}
+          {/* Key insights */}
           <div style={{
             display:'flex',
             justifyContent:'center',
@@ -4738,25 +4800,27 @@ const StoryMode = ({ dev, nta, complaints, onBack, onSwitchToDashboard }) => {
             transform: showElements.footer ? 'translateY(0)' : 'translateY(20px)',
             transition:'all 0.8s ease-out 0.6s'
           }}>
-            <div style={{ padding:'12px 18px', background:'rgba(0,0,0,0.5)', borderRadius:'6px', border:'1px solid rgba(251,191,36,0.3)' }}>
-              <div style={{ fontSize:'9px', color:'#a3a3a3', marginBottom:'4px', letterSpacing:'0.05em' }}>WARMING SINCE 1950s</div>
-              <div style={{ fontSize:'20px', fontWeight:'700', color:'#fbbf24' }}>+{(nta.temp_2020s - nta.temp_1950s).toFixed(1)}°F</div>
+            <div style={{ padding:'12px 18px', background:'rgba(0,0,0,0.5)', borderRadius:'6px', border:'1px solid rgba(59,130,246,0.3)' }}>
+              <div style={{ fontSize:'9px', color:'#a3a3a3', marginBottom:'4px', letterSpacing:'0.05em' }}>24-HR AVG CHANGE</div>
+              <div style={{ fontSize:'20px', fontWeight:'700', color:'#60a5fa' }}>+3.3°F</div>
+              <div style={{ fontSize:'8px', color:'#737373' }}>since 1945</div>
             </div>
             <div style={{ padding:'12px 18px', background:'rgba(0,0,0,0.5)', borderRadius:'6px', border:'1px solid rgba(239,68,68,0.3)' }}>
-              <div style={{ fontSize:'9px', color:'#a3a3a3', marginBottom:'4px', letterSpacing:'0.05em' }}>BY 2050s</div>
-              <div style={{ fontSize:'20px', fontWeight:'700', color:'#ef4444' }}>+{(nta.temp_2050 - nta.temp_1950s).toFixed(1)}°F</div>
+              <div style={{ fontSize:'9px', color:'#a3a3a3', marginBottom:'4px', letterSpacing:'0.05em' }}>PEAK MAX CHANGE</div>
+              <div style={{ fontSize:'20px', fontWeight:'700', color:'#ef4444' }}>+5.6°F</div>
+              <div style={{ fontSize:'8px', color:'#737373' }}>since 1945</div>
             </div>
             <div style={{ padding:'12px 18px', background:'rgba(0,0,0,0.5)', borderRadius:'6px', border:'1px solid rgba(239,68,68,0.3)' }}>
-              <div style={{ fontSize:'9px', color:'#a3a3a3', marginBottom:'4px', letterSpacing:'0.05em' }}>HEAT DAYS (&gt;90°F)</div>
-              <div style={{ fontSize:'20px', fontWeight:'700', color:'#ef4444' }}>{climateByDecade['1950s'].heatDays90} → {climateByDecade['2050s'].heatDays90}</div>
+              <div style={{ fontSize:'9px', color:'#a3a3a3', marginBottom:'4px', letterSpacing:'0.05em' }}>2025 PEAK</div>
+              <div style={{ fontSize:'20px', fontWeight:'700', color:'#ef4444' }}>94°F</div>
+              <div style={{ fontSize:'8px', color:'#737373' }}>highest recorded</div>
             </div>
           </div>
 
           <div style={{ fontSize:'10px', color:'#737373', marginTop:'20px', ...S.mono, lineHeight: 1.6 }}>
-            <strong>Sources:</strong><br/>
-            Historical: <a href="https://www.ncei.noaa.gov/cdo-web/" target="_blank" rel="noopener" style={{ color:'#60a5fa' }}>NOAA NCEI NYC Central Park Station</a><br/>
-            Projections: <a href="https://climate.cityofnewyork.us/reports/npcc4/" target="_blank" rel="noopener" style={{ color:'#60a5fa' }}>NYC Panel on Climate Change (NPCC4) 2024</a><br/>
-            UHI adjustment: +{nta.uhi_adj}°F for neighborhood density
+            <strong>Source:</strong> ERA5 hourly reanalysis data (ECMWF) for Brooklyn, NYC<br/>
+            Analysis: Average temperature across all 24 hours + peak maximum temperature, June–August<br/>
+            <span style={{ color:'#60a5fa' }}>Blue bars</span> = 24-hour daily average | <span style={{ color:'#f97316' }}>Orange/red bars</span> = peak maximum temperature
           </div>
         </div>
       )
@@ -5848,10 +5912,10 @@ export default function App() {
                         <div>
                           <div style={{ fontSize: '9px', color: colors.text.muted, marginBottom: '6px', ...S.mono }}>INVESTMENT</div>
                           <div style={{ fontSize: '24px', fontWeight: '700', color: colors.accent.green, marginBottom: '2px' }}>
-                            ${(calcPackageCost(pkg, dev) / 1000000).toFixed(1)}M
+                            ${(calcPackageCost(pkg, dev) / 1000000).toFixed(1)}M*
                           </div>
                           <div style={{ fontSize: '10px', color: colors.text.muted, marginBottom: '12px' }}>
-                            ${calcPackageCostPerUnit(pkg, dev).toLocaleString()}/unit
+                            ${calcPackageCostPerUnit(pkg, dev).toLocaleString()}/unit*
                           </div>
 
                           <div style={{ display: 'flex', gap: '12px' }}>
@@ -6016,7 +6080,7 @@ export default function App() {
               const costOfInaction25Years = costOfInactionPerYear * 25;
 
               // Calculate projected temps
-              const peakIndoorNoRetrofit = 103;
+              const peakIndoorNoRetrofit = 90;
               const peakIndoorWithRetrofit = Math.max(72, peakIndoorNoRetrofit - tempReduction);
 
               return (
@@ -6032,7 +6096,7 @@ export default function App() {
                       </div>
                       <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
                         <span style={{ fontSize: '10px', color: colors.text.muted }}>Peak indoor:</span>
-                        <span style={{ fontSize: '20px', fontWeight: '700', color: colors.status.critical }}>103°F</span>
+                        <span style={{ fontSize: '20px', fontWeight: '700', color: colors.status.critical }}>90°F+</span>
                       </div>
                       <div style={{ fontSize: '8px', color: colors.text.muted, marginTop: '6px', ...S.mono }}>
                         <a href="https://www.ncei.noaa.gov/" target="_blank" rel="noopener" style={{ color: colors.text.muted, textDecoration: 'underline' }}>NOAA</a> + <a href="https://www.nyc.gov/site/orr/data/heat.page" target="_blank" rel="noopener" style={{ color: colors.text.muted, textDecoration: 'underline' }}>NYC Heat Data</a>
@@ -6056,7 +6120,7 @@ export default function App() {
                           <span style={{ fontSize: '20px', fontWeight: '700', color: hasComprehensive ? colors.status.aligned : colors.status.strained }}>{peakIndoorWithRetrofit}°F</span>
                         </div>
                         <div style={{ fontSize: '10px', color: colors.text.muted, marginTop: '6px' }}>
-                          <span style={{ color: colors.status.critical, textDecoration: 'line-through' }}>103°F</span> → <strong style={{ color: hasComprehensive ? colors.status.aligned : colors.status.strained }}>{peakIndoorWithRetrofit}°F</strong> (-{tempReduction}°F)
+                          <span style={{ color: colors.status.critical, textDecoration: 'line-through' }}>90°F+</span> → <strong style={{ color: hasComprehensive ? colors.status.aligned : colors.status.strained }}>{peakIndoorWithRetrofit}°F</strong> (-{tempReduction}°F)
                         </div>
                       </div>
                     )}
@@ -6068,10 +6132,10 @@ export default function App() {
                     <div style={{ padding: '16px 18px', background: activeRetrofits.length > 0 ? `${colors.accent.green}10` : colors.bg.secondary, border: `1px solid ${activeRetrofits.length > 0 ? colors.accent.green + '40' : colors.border.subtle}` }}>
                       <div style={{ fontSize: '10px', color: activeRetrofits.length > 0 ? colors.accent.green : colors.text.muted, marginBottom: '8px', letterSpacing: '0.05em', ...S.mono }}>INVEST NOW</div>
                       <div style={{ fontSize: '24px', fontWeight: '700', color: activeRetrofits.length > 0 ? colors.accent.green : colors.text.muted, marginBottom: '4px' }}>
-                        {activeRetrofits.length > 0 ? `$${(totalCost / 1000000).toFixed(1)}M` : '$0'}
+                        {activeRetrofits.length > 0 ? `$${(totalCost / 1000000).toFixed(1)}M*` : '$0'}
                       </div>
                       {activeRetrofits.length > 0 && (
-                        <div style={{ fontSize: '11px', color: colors.text.muted }}>${Math.round(totalCost / dev.unit_count).toLocaleString()}/unit</div>
+                        <div style={{ fontSize: '11px', color: colors.text.muted }}>${Math.round(totalCost / dev.unit_count).toLocaleString()}/unit*</div>
                       )}
                     </div>
 
@@ -6080,7 +6144,7 @@ export default function App() {
                       <div style={{ padding: '16px 18px', background: `${colors.status.critical}10`, border: `1px solid ${colors.status.critical}30`, cursor: 'help', height: '100%', boxSizing: 'border-box' }}>
                         <div style={{ fontSize: '10px', color: colors.status.critical, marginBottom: '8px', letterSpacing: '0.05em', ...S.mono }}>OR PAY BY 2050</div>
                         <div style={{ fontSize: '24px', fontWeight: '700', color: colors.status.critical, marginBottom: '4px' }}>
-                          ${(costOfInaction25Years / 1000000).toFixed(1)}M
+                          ${(costOfInaction25Years / 1000000).toFixed(1)}M*
                         </div>
                         <div style={{ fontSize: '11px', color: colors.text.muted }}>repairs + health costs*</div>
                       </div>
@@ -6094,7 +6158,7 @@ export default function App() {
           {/* Footer with View Data Button */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', flexShrink: 0 }}>
             <div style={{ fontSize: '9px', color: colors.text.muted, ...S.mono }}>
-              CLIM-ALIGN · Urban Futures NYC 2026
+              CLIM-ALIGN · Urban Futures NYC 2026 · <span style={{ color: '#fca5a5' }}>* = planning-level estimates</span>
             </div>
             <button
               onClick={() => setShowDataModal(true)}
@@ -6147,7 +6211,7 @@ export default function App() {
                     {[
                       { year: dev.year_built, label: 'AS DESIGNED', status: 'aligned', desc: `~71°F summers, ${nta.heat_days_1960s} heat days/yr. Building systems matched climate.` },
                       { year: '1990s', label: '~40 YEARS', status: 'strained', desc: 'Systems aging. Climate warming. Maintenance backlog growing.' },
-                      { year: '2020s', label: 'CURRENT', status: 'critical', desc: `${nta.heat_days_2020s} heat days/yr (+${Math.round((nta.heat_days_2020s - nta.heat_days_1960s) / nta.heat_days_1960s * 100)}%). Indoor temps reach 103°F.` },
+                      { year: '2020s', label: 'CURRENT', status: 'critical', desc: `${nta.heat_days_2020s} heat days/yr (+${Math.round((nta.heat_days_2020s - nta.heat_days_1960s) / nta.heat_days_1960s * 100)}%). Indoor temps reach 90°F+.` },
                       { year: '2050s', label: 'PROJECTED', status: 'critical', desc: `${nta.heat_days_2050}+ heat days projected. Without retrofits: critical failure risk.` }
                     ].map((era, i) => (
                       <div key={i} style={{
@@ -6374,7 +6438,7 @@ export default function App() {
 
                 {/* Hero stat */}
                 <div style={{ textAlign: 'center', padding: '32px', background: '#fef2f2', border: '2px solid #dc2626', marginBottom: '24px' }}>
-                  <div style={{ fontSize: '64px', fontWeight: '900', color: '#dc2626', lineHeight: 1, ...S.mono }}>103°F</div>
+                  <div style={{ fontSize: '64px', fontWeight: '900', color: '#dc2626', lineHeight: 1, ...S.mono }}>90°F+</div>
                   <div style={{ fontSize: '12px', color: '#991b1b', marginTop: '8px', letterSpacing: '0.05em', ...S.mono }}>PEAK INDOOR TEMPERATURE</div>
                   <div style={{ fontSize: '10px', color: '#737373', marginTop: '8px' }}>
                     Inside {dev.name} during a summer heat wave. No central AC. No escape.
@@ -6459,7 +6523,7 @@ export default function App() {
                 <div style={{ padding: '16px', background: '#fffbeb', borderLeft: '3px solid #d97706' }}>
                   <div style={{ fontSize: '11px', fontWeight: '600', color: '#92400e', marginBottom: '6px' }}>KEY FINDING</div>
                   <p style={{ fontSize: '11px', color: '#525252', lineHeight: 1.5, margin: 0 }}>
-                    Peak indoor temps can reach <strong style={{ color: '#dc2626' }}>103°F</strong> during heat waves in units without AC—conditions these buildings were never designed to manage.
+                    Peak indoor temps can reach <strong style={{ color: '#dc2626' }}>90°F+</strong> during heat waves in units without AC—conditions these buildings were never designed to manage.
                   </p>
                 </div>
 
@@ -6547,11 +6611,11 @@ export default function App() {
                         <div style={{ fontSize: '11px', fontWeight: '700', color: '#ea580c', marginBottom: '2px' }}>1. EMERGENCY</div>
                         <div style={{ fontSize: '9px', color: '#525252' }}>Bare minimum for survival</div>
                       </div>
-                      <div style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c' }}>${(retrofitPackages[0].costPerUnit * dev.unit_count / 1000000).toFixed(1)}M</div>
+                      <div style={{ fontSize: '14px', fontWeight: '700', color: '#ea580c' }}>${(retrofitPackages[0].costPerUnit * dev.unit_count / 1000000).toFixed(1)}M*</div>
                     </div>
                     <div style={{ fontSize: '9px', color: '#525252', marginBottom: '6px' }}>Window AC + cool roofs</div>
                     <div style={{ display: 'flex', gap: '12px', fontSize: '9px' }}>
-                      <span style={{ color: '#166534' }}>-{retrofitPackages[0].tempReduction}°F</span>
+                      <span style={{ color: '#166534' }}>-{retrofitPackages[0].tempReduction}°F*</span>
                       <span style={{ color: '#737373' }}>{retrofitPackages[0].timeline}</span>
                     </div>
                   </div>
@@ -6563,11 +6627,11 @@ export default function App() {
                         <div style={{ fontSize: '11px', fontWeight: '700', color: '#2563eb', marginBottom: '2px' }}>2. UPGRADE</div>
                         <div style={{ fontSize: '9px', color: '#525252' }}>Meaningful improvements</div>
                       </div>
-                      <div style={{ fontSize: '14px', fontWeight: '700', color: '#2563eb' }}>${(retrofitPackages[1].costPerUnit * dev.unit_count / 1000000).toFixed(1)}M</div>
+                      <div style={{ fontSize: '14px', fontWeight: '700', color: '#2563eb' }}>${(retrofitPackages[1].costPerUnit * dev.unit_count / 1000000).toFixed(1)}M*</div>
                     </div>
                     <div style={{ fontSize: '9px', color: '#525252', marginBottom: '6px' }}>Heat pumps + insulation + windows</div>
                     <div style={{ display: 'flex', gap: '12px', fontSize: '9px' }}>
-                      <span style={{ color: '#166534' }}>-{retrofitPackages[1].tempReduction}°F</span>
+                      <span style={{ color: '#166534' }}>-{retrofitPackages[1].tempReduction}°F*</span>
                       <span style={{ color: '#737373' }}>{retrofitPackages[1].timeline}</span>
                     </div>
                   </div>
@@ -6579,11 +6643,11 @@ export default function App() {
                         <div style={{ fontSize: '11px', fontWeight: '700', color: '#16a34a', marginBottom: '2px' }}>3. CLIMATE-READY</div>
                         <div style={{ fontSize: '9px', color: '#525252' }}>Full future-proofing</div>
                       </div>
-                      <div style={{ fontSize: '14px', fontWeight: '700', color: '#16a34a' }}>${(retrofitPackages[2].costPerUnit * dev.unit_count / 1000000).toFixed(1)}M</div>
+                      <div style={{ fontSize: '14px', fontWeight: '700', color: '#16a34a' }}>${(retrofitPackages[2].costPerUnit * dev.unit_count / 1000000).toFixed(1)}M*</div>
                     </div>
                     <div style={{ fontSize: '9px', color: '#525252', marginBottom: '6px' }}>Complete envelope + systems + resilience</div>
                     <div style={{ display: 'flex', gap: '12px', fontSize: '9px' }}>
-                      <span style={{ color: '#166534' }}>-{retrofitPackages[2].tempReduction}°F</span>
+                      <span style={{ color: '#166534' }}>-{retrofitPackages[2].tempReduction}°F*</span>
                       <span style={{ color: '#737373' }}>{retrofitPackages[2].timeline}</span>
                     </div>
                   </div>
@@ -6595,11 +6659,11 @@ export default function App() {
                         <div style={{ fontSize: '11px', fontWeight: '700', color: '#7c3aed', marginBottom: '2px' }}>4. COMPREHENSIVE</div>
                         <div style={{ fontSize: '9px', color: '#525252' }}>All packages combined</div>
                       </div>
-                      <div style={{ fontSize: '14px', fontWeight: '700', color: '#7c3aed' }}>${((retrofitPackages[0].costPerUnit + retrofitPackages[1].costPerUnit + retrofitPackages[2].costPerUnit) * dev.unit_count / 1000000).toFixed(1)}M</div>
+                      <div style={{ fontSize: '14px', fontWeight: '700', color: '#7c3aed' }}>${((retrofitPackages[0].costPerUnit + retrofitPackages[1].costPerUnit + retrofitPackages[2].costPerUnit) * dev.unit_count / 1000000).toFixed(1)}M*</div>
                     </div>
                     <div style={{ fontSize: '9px', color: '#525252', marginBottom: '6px' }}>Every intervention, maximum impact</div>
                     <div style={{ display: 'flex', gap: '12px', fontSize: '9px' }}>
-                      <span style={{ color: '#166534' }}>-{retrofitPackages[0].tempReduction + retrofitPackages[1].tempReduction + retrofitPackages[2].tempReduction}°F</span>
+                      <span style={{ color: '#166534' }}>-{retrofitPackages[0].tempReduction + retrofitPackages[1].tempReduction + retrofitPackages[2].tempReduction}°F*</span>
                       <span style={{ color: '#737373' }}>18-24 months</span>
                     </div>
                   </div>
@@ -6633,26 +6697,32 @@ export default function App() {
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
                   <div style={{ padding: '20px', background: '#052e16', border: '2px solid #22c55e' }}>
-                    <div style={{ fontSize: '10px', color: '#86efac', marginBottom: '6px', ...S.mono }}>INVEST NOW</div>
+                    <div style={{ fontSize: '10px', color: '#86efac', marginBottom: '6px', ...S.mono }}>INVEST NOW*</div>
                     <div style={{ fontSize: '28px', fontWeight: '700', color: '#22c55e' }}>
-                      ${(retrofitPackages[2].costPerUnit * dev.unit_count / 1000000).toFixed(1)}M
+                      ${(retrofitPackages[2].costPerUnit * dev.unit_count / 1000000).toFixed(1)}M*
                     </div>
                     <div style={{ fontSize: '10px', color: '#a3a3a3', marginTop: '8px' }}>Climate-Ready package</div>
                   </div>
                   <div style={{ padding: '20px', background: '#450a0a', border: '2px solid #dc2626' }}>
-                    <div style={{ fontSize: '10px', color: '#fca5a5', marginBottom: '6px', ...S.mono }}>PAY BY 2050</div>
+                    <div style={{ fontSize: '10px', color: '#fca5a5', marginBottom: '6px', ...S.mono }}>PAY BY 2050*</div>
                     <div style={{ fontSize: '28px', fontWeight: '700', color: '#ef4444' }}>
-                      ${(retrofitPackages[2].costPerUnit * dev.unit_count * 2.5 / 1000000).toFixed(1)}M
+                      ${(retrofitPackages[2].costPerUnit * dev.unit_count * 2.5 / 1000000).toFixed(1)}M*
                     </div>
-                    <div style={{ fontSize: '10px', color: '#a3a3a3', marginTop: '8px' }}>Emergency + health costs</div>
+                    <div style={{ fontSize: '10px', color: '#a3a3a3', marginTop: '8px' }}>Emergency + health costs*</div>
                   </div>
                 </div>
 
                 <div style={{ padding: '20px', background: '#1c1917', border: '1px solid #ca8a04' }}>
                   <div style={{ fontSize: '14px', fontWeight: '700', color: '#fcd34d', marginBottom: '8px' }}>The Math is Clear</div>
                   <p style={{ fontSize: '11px', color: '#d4d4d4', lineHeight: 1.5, margin: 0 }}>
-                    Delayed action costs <strong style={{ color: '#fcd34d' }}>150% more</strong> than proactive investment—paid in emergencies, health impacts, and preventable deaths.
+                    Delayed action costs <strong style={{ color: '#fcd34d' }}>150% more</strong>* than proactive investment—paid in emergencies, health impacts, and preventable deaths.
                   </p>
+                </div>
+
+                <div style={{ padding: '12px', background: '#f5f5f5', border: '1px solid #e5e5e5', marginTop: '16px' }}>
+                  <div style={{ fontSize: '9px', color: '#737373', lineHeight: 1.5 }}>
+                    <strong>* All costs and projections are planning-level estimates</strong> based on industry benchmarks (RSMeans, NYSERDA, DOE). Actual costs vary by contractor, site conditions, and market factors. Temperature reductions are modeled estimates.
+                  </div>
                 </div>
 
                 <div style={{ marginTop: 'auto', borderTop: '1px solid #262626', paddingTop: '16px', display: 'flex', justifyContent: 'space-between' }}>
