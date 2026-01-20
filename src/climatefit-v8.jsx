@@ -124,67 +124,67 @@ const demographics = {
 // - NYC CoolRoofs Program (https://www.nyc.gov/site/sustainability/codes/coolroofs.page)
 const retrofits = [
   // Cooling Systems
-  { id: "ac_electric", name: "Window AC + Electrical", cost_low: 2500, cost_high: 4500, basis: "unit", tempDelta: -18, energyDelta: 25, view: "exterior", color: "#60a5fa", improves: ['thermal'], category: "cooling",
+  { id: "ac_electric", name: "Window AC + Electrical", cost_low: 2500, cost_high: 4500, basis: "unit", tempDelta: -12, energyDelta: 25, view: "exterior", color: "#60a5fa", improves: ['thermal'], category: "cooling",
     desc: "Window AC units with upgraded electrical service (200A panels) to handle load without brownouts.",
     source: "RSMeans 2024: Window AC $400-800 + electrical panel upgrade $1,500-3,000/unit",
     sourceUrl: "https://www.rsmeans.com/" },
-  { id: "window_heat_pump", name: "Window Heat Pumps", cost_low: 3200, cost_high: 5500, basis: "unit", tempDelta: -20, energyDelta: -15, view: "exterior", color: "#3b82f6", improves: ['thermal', 'infra'], category: "cooling",
+  { id: "window_heat_pump", name: "Window Heat Pumps", cost_low: 3200, cost_high: 5500, basis: "unit", tempDelta: -14, energyDelta: -15, view: "exterior", color: "#3b82f6", improves: ['thermal', 'infra'], category: "cooling",
     desc: "Packaged window heat pumps providing heating and cooling. NYCHA Woodside pilot showed 87% energy reduction.",
     source: "NYCHA Woodside Houses Pilot 2023 + DOE Heat Pump Cost Analysis",
     sourceUrl: "https://www.energy.gov/eere/buildings/heat-pump-technologies" },
-  { id: "minisplit", name: "Ductless Mini-Splits", cost_low: 4000, cost_high: 10000, basis: "unit", tempDelta: -21, energyDelta: -25, view: "xray", color: "#2563eb", improves: ['thermal', 'infra'], category: "cooling",
+  { id: "minisplit", name: "Ductless Mini-Splits", cost_low: 4000, cost_high: 10000, basis: "unit", tempDelta: -15, energyDelta: -25, view: "xray", color: "#2563eb", improves: ['thermal', 'infra'], category: "cooling",
     desc: "Room-by-room ductless systems. Highly efficient, quieter than window units, no ductwork required.",
     source: "NYSERDA: $3,500-8,000/unit installed, +$500-2,000 for multifamily",
     sourceUrl: "https://www.nyserda.ny.gov/All-Programs/Heat-Pump-Program" },
-  { id: "central_hvac", name: "Central HVAC System", cost_low: 150000, cost_high: 300000, basis: "bldg", tempDelta: -22, energyDelta: 5, view: "xray", color: "#0ea5e9", improves: ['thermal', 'infra'], category: "cooling",
+  { id: "central_hvac", name: "Central HVAC System", cost_low: 150000, cost_high: 300000, basis: "bldg", tempDelta: -16, energyDelta: 5, view: "xray", color: "#0ea5e9", improves: ['thermal', 'infra'], category: "cooling",
     desc: "Building-wide central air conditioning with ductwork. More efficient than window units, quieter operation.",
     source: "RSMeans 2024: $15-25/sqft for commercial HVAC, ~10,000 sqft/bldg",
     sourceUrl: "https://www.rsmeans.com/" },
-  { id: "vrf_system", name: "VRF System", cost_low: 200000, cost_high: 380000, basis: "bldg", tempDelta: -23, energyDelta: -35, view: "xray", color: "#0284c7", improves: ['thermal', 'infra'], category: "cooling",
+  { id: "vrf_system", name: "VRF System", cost_low: 200000, cost_high: 380000, basis: "bldg", tempDelta: -14, energyDelta: -35, view: "xray", color: "#0284c7", improves: ['thermal', 'infra'], category: "cooling",
     desc: "Variable Refrigerant Flow with up to 50 indoor units per condenser. Exceptional efficiency, room-by-room control.",
     source: "RSMeans 2024: $20-35/sqft for VRF systems in multifamily",
     sourceUrl: "https://www.rsmeans.com/" },
-  { id: "heat_pump", name: "Central Heat Pumps", cost_low: 180000, cost_high: 350000, basis: "bldg", tempDelta: -20, energyDelta: -30, view: "xray", color: "#06b6d4", improves: ['thermal', 'infra'], category: "cooling",
+  { id: "heat_pump", name: "Central Heat Pumps", cost_low: 180000, cost_high: 350000, basis: "bldg", tempDelta: -15, energyDelta: -30, view: "xray", color: "#06b6d4", improves: ['thermal', 'infra'], category: "cooling",
     desc: "Air-source heat pumps for heating and cooling. Highly efficient, reduces both energy use and emissions.",
     source: "DOE Building Technologies: $18-32/sqft for commercial heat pump systems",
     sourceUrl: "https://www.energy.gov/eere/buildings/heat-pump-technologies" },
 
   // Building Envelope
-  { id: "cool_roof", name: "Cool Roof Coating", cost_low: 8, cost_high: 15, basis: "sqft", tempDelta: -8, energyDelta: -15, view: "exterior", color: "#e5e5e5", improves: ['thermal'], category: "envelope",
+  { id: "cool_roof", name: "Cool Roof Coating", cost_low: 8, cost_high: 15, basis: "sqft", tempDelta: -3, energyDelta: -15, view: "exterior", color: "#e5e5e5", improves: ['thermal'], category: "envelope",
     desc: "High-reflectance coating reduces rooftop temps by 50-60°F, lowering heat transfer to top floors.",
     source: "NYC CoolRoofs Program: $0.75-1.50/sqft coating, $8-15/sqft fully installed",
     sourceUrl: "https://www.nyc.gov/site/sustainability/codes/coolroofs.page" },
-  { id: "green_roof", name: "Green Roof", cost_low: 120000, cost_high: 250000, basis: "bldg", tempDelta: -12, energyDelta: -20, view: "exterior", color: "#22c55e", nature: true, improves: ['thermal'], category: "envelope",
+  { id: "green_roof", name: "Green Roof", cost_low: 120000, cost_high: 250000, basis: "bldg", tempDelta: -3, energyDelta: -20, view: "exterior", color: "#22c55e", nature: true, improves: ['thermal'], category: "envelope",
     desc: "Vegetated rooftop with soil and plants. Provides insulation, stormwater retention, and reduces urban heat island.",
     source: "NYC DEP Green Infrastructure: $25-40/sqft intensive, ~4,000-6,000 sqft/bldg roof",
     sourceUrl: "https://www.nyc.gov/site/dep/water/green-infrastructure.page" },
-  { id: "envelope", name: "Windows + Air Sealing", cost_low: 3500, cost_high: 6500, basis: "unit", tempDelta: -6, energyDelta: -25, view: "exterior", color: "#10b981", improves: ['thermal'], category: "envelope",
+  { id: "envelope", name: "Windows + Air Sealing", cost_low: 3500, cost_high: 6500, basis: "unit", tempDelta: -3, energyDelta: -25, view: "exterior", color: "#10b981", improves: ['thermal'], category: "envelope",
     desc: "Double-pane low-E windows + air sealing. Major reduction in heating/cooling loss.",
     source: "NYSERDA Multifamily: $250-400/sqft window area + $500-1,000 air sealing/unit",
     sourceUrl: "https://www.nyserda.ny.gov/All-Programs/Multifamily-Performance-Program" },
-  { id: "triple_pane", name: "Triple-Pane Windows", cost_low: 5000, cost_high: 9500, basis: "unit", tempDelta: -9, energyDelta: -35, view: "exterior", color: "#059669", improves: ['thermal'], category: "envelope",
+  { id: "triple_pane", name: "Triple-Pane Windows", cost_low: 5000, cost_high: 9500, basis: "unit", tempDelta: -4, energyDelta: -35, view: "exterior", color: "#059669", improves: ['thermal'], category: "envelope",
     desc: "Triple-pane gas-filled windows. Superior insulation, 50-80% reduction in heat loss through windows.",
     source: "RSMeans 2024: $400-600/sqft triple-pane, ~8-12 sqft/unit average",
     sourceUrl: "https://www.rsmeans.com/" },
-  { id: "insulation", name: "Wall Insulation", cost_low: 4000, cost_high: 8000, basis: "unit", tempDelta: -5, energyDelta: -20, view: "exterior", color: "#84cc16", improves: ['thermal'], category: "envelope",
+  { id: "insulation", name: "Wall Insulation", cost_low: 4000, cost_high: 8000, basis: "unit", tempDelta: -2, energyDelta: -20, view: "exterior", color: "#84cc16", improves: ['thermal'], category: "envelope",
     desc: "Blown-in or rigid foam insulation in exterior walls. Reduces thermal bridging and drafts.",
     source: "RSMeans 2024: $4-8/sqft wall area, ~600-1,000 sqft exterior wall/unit",
     sourceUrl: "https://www.rsmeans.com/" },
-  { id: "advanced_insulation", name: "Advanced Envelope Package", cost_low: 7500, cost_high: 14000, basis: "unit", tempDelta: -11, energyDelta: -40, view: "exterior", color: "#65a30d", improves: ['thermal', 'infra'], category: "envelope",
+  { id: "advanced_insulation", name: "Advanced Envelope Package", cost_low: 7500, cost_high: 14000, basis: "unit", tempDelta: -3, energyDelta: -40, view: "exterior", color: "#65a30d", improves: ['thermal', 'infra'], category: "envelope",
     desc: "Comprehensive envelope: spray foam, thermal breaks, weather barrier, air sealing. 50-80% heat loss reduction.",
     source: "NYSERDA Deep Energy Retrofit: $7,500-14,000/unit for comprehensive envelope",
     sourceUrl: "https://www.nyserda.ny.gov/All-Programs/Multifamily-Performance-Program" },
-  { id: "facade_panels", name: "Insulated Panel Facade", cost_low: 85, cost_high: 150, basis: "sqft", tempDelta: -14, energyDelta: -45, view: "exterior", color: "#0891b2", improves: ['thermal', 'infra'], category: "envelope",
+  { id: "facade_panels", name: "Insulated Panel Facade", cost_low: 85, cost_high: 150, basis: "sqft", tempDelta: -5, energyDelta: -45, view: "exterior", color: "#0891b2", improves: ['thermal', 'infra'], category: "envelope",
     desc: "Undulating insulated aluminum composite panels with integrated ventilation. Beautiful and highly efficient heat refraction.",
     source: "RSMeans 2024: $85-150/sqft for insulated metal panel systems",
     sourceUrl: "https://www.rsmeans.com/" },
 
   // Mechanical Systems
-  { id: "ventilation", name: "Ventilation (ERV)", cost_low: 45000, cost_high: 85000, basis: "bldg", tempDelta: -3, energyDelta: -5, view: "xray", color: "#a78bfa", improves: ['thermal', 'infra'], category: "mechanical",
+  { id: "ventilation", name: "Ventilation (ERV)", cost_low: 45000, cost_high: 85000, basis: "bldg", tempDelta: -1, energyDelta: -5, view: "xray", color: "#a78bfa", improves: ['thermal', 'infra'], category: "mechanical",
     desc: "Energy Recovery Ventilation provides fresh air while recovering heat/cooling. Reduces mold.",
     source: "ASHRAE: $4-8/CFM, ~8,000-10,000 CFM per building",
     sourceUrl: "https://www.ashrae.org/" },
-  { id: "dehumidification", name: "Whole-Building Dehumidifier", cost_low: 35000, cost_high: 65000, basis: "bldg", tempDelta: -2, energyDelta: -3, view: "xray", color: "#9333ea", improves: ['thermal', 'infra'], category: "mechanical",
+  { id: "dehumidification", name: "Whole-Building Dehumidifier", cost_low: 35000, cost_high: 65000, basis: "bldg", tempDelta: -1, energyDelta: -3, view: "xray", color: "#9333ea", improves: ['thermal', 'infra'], category: "mechanical",
     desc: "Dedicated dehumidification system. Reduces mold, improves comfort, allows higher thermostat settings.",
     source: "RSMeans 2024: Commercial dehumidification $3-6/sqft conditioned",
     sourceUrl: "https://www.rsmeans.com/" },
@@ -196,17 +196,17 @@ const retrofits = [
     desc: "High-efficiency water heaters or heat pump water heaters. Reduces energy use, more reliable hot water.",
     source: "DOE: Heat pump water heater systems $85,000-160,000/bldg installed",
     sourceUrl: "https://www.energy.gov/eere/buildings" },
-  { id: "building_automation", name: "Building Automation System", cost_low: 95000, cost_high: 180000, basis: "bldg", tempDelta: -4, energyDelta: -18, view: "xray", color: "#8b5cf6", improves: ['thermal', 'infra'], category: "mechanical",
+  { id: "building_automation", name: "Building Automation System", cost_low: 95000, cost_high: 180000, basis: "bldg", tempDelta: -1, energyDelta: -18, view: "xray", color: "#8b5cf6", improves: ['thermal', 'infra'], category: "mechanical",
     desc: "Smart controls for HVAC, lighting, and systems. Optimizes performance, predicts failures, reduces waste.",
     source: "RSMeans 2024: BAS $8-15/sqft for multifamily, ~10,000 sqft/bldg",
     sourceUrl: "https://www.rsmeans.com/" },
 
   // Site & Resilience
-  { id: "cool_pavement", name: "Cool Pavement", cost_low: 45000, cost_high: 120000, basis: "dev", tempDelta: -5, energyDelta: -4, view: "site", color: "#94a3b8", improves: ['thermal'], category: "site",
+  { id: "cool_pavement", name: "Cool Pavement", cost_low: 45000, cost_high: 120000, basis: "dev", tempDelta: -1, energyDelta: -4, view: "site", color: "#94a3b8", improves: ['thermal'], category: "site",
     desc: "High-albedo pavement coating or permeable materials. Reduces surface temps by 10-20°F, lowers ambient heat.",
     source: "NYC DOT: Cool pavement pilots $8-20/sqft, ~5,000-6,000 sqft/dev",
     sourceUrl: "https://www.nyc.gov/html/dot/html/pedestrians/cool-corridors.shtml" },
-  { id: "bioswale", name: "Stormwater Infrastructure", cost_low: 75000, cost_high: 200000, basis: "dev", tempDelta: -4, energyDelta: -5, view: "site", color: "#16a34a", nature: true, improves: ['thermal'], category: "site",
+  { id: "bioswale", name: "Stormwater Infrastructure", cost_low: 75000, cost_high: 200000, basis: "dev", tempDelta: -1, energyDelta: -5, view: "site", color: "#16a34a", nature: true, improves: ['thermal'], category: "site",
     desc: "Bioswales + understory planting for stormwater retention and evaporative cooling.",
     source: "NYC DEP Green Infrastructure: $50-150/sqft for bioswales",
     sourceUrl: "https://www.nyc.gov/site/dep/water/green-infrastructure.page" },
@@ -214,7 +214,7 @@ const retrofits = [
     desc: "Rooftop solar panels with battery backup. Provides resilience during outages and reduces energy costs.",
     source: "NYSERDA: Solar $2.50-4/watt + battery $500-800/kWh, ~50kW/bldg",
     sourceUrl: "https://www.nyserda.ny.gov/All-Programs/NY-Sun" },
-  { id: "stormwater", name: "Stormwater Management", cost_low: 75000, cost_high: 200000, basis: "dev", tempDelta: -2, energyDelta: -3, view: "site", color: "#0ea5e9", nature: true, improves: ['infra', 'social'], category: "site",
+  { id: "stormwater", name: "Stormwater Management", cost_low: 75000, cost_high: 200000, basis: "dev", tempDelta: 0, energyDelta: -3, view: "site", color: "#0ea5e9", nature: true, improves: ['infra', 'social'], category: "site",
     desc: "Permeable pavement, rain gardens, and drainage improvements. Prevents flooding during extreme weather events.",
     source: "NYC DEP: Comprehensive stormwater systems $75,000-200,000/site",
     sourceUrl: "https://www.nyc.gov/site/dep/water/green-infrastructure.page" }
@@ -285,7 +285,7 @@ const retrofitPackages = [
     question: "What's the bare minimum?",
     shortDesc: 'Band-aid fixes',
     costPerUnit: 4000,
-    tempReduction: 18,
+    tempReduction: 15,
     timeline: '3-6 months',
     color: colors.packages.emergency,
     bgGradient: `linear-gradient(135deg, ${colors.bg.tertiary} 0%, ${colors.bg.primary} 100%)`,
@@ -306,7 +306,7 @@ const retrofitPackages = [
     question: "What does decent housing look like?",
     shortDesc: 'Real improvement',
     costPerUnit: 15000,
-    tempReduction: 30,
+    tempReduction: 18,
     timeline: '12-18 months',
     color: colors.packages.upgrade,
     bgGradient: `linear-gradient(135deg, ${colors.bg.tertiary} 0%, ${colors.bg.primary} 100%)`,
@@ -328,8 +328,8 @@ const retrofitPackages = [
     tabDesc: 'Full 2050 alignment',
     question: "What does true climate alignment look like?",
     shortDesc: 'Full alignment',
-    costPerUnit: 45000,
-    tempReduction: 40,
+    costPerUnit: 22500,
+    tempReduction: 22,
     timeline: '24-36 months',
     color: colors.packages.ready,
     bgGradient: `linear-gradient(135deg, ${colors.bg.tertiary} 0%, ${colors.bg.primary} 100%)`,
@@ -623,6 +623,8 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
   const buildingRef = useRef([]);
   const refs = useRef({ roof:[], ac:[], pipes:[], vents:[], windows:[], bio:[], electrical:[], elevator:[] });
   const angleRef = useRef(0);
+  const prevWindowStateRef = useRef({ hasEnvelope: false, hasTriplePane: false });
+  const prevEnvelopeRef = useRef(false);
 
   useEffect(() => {
     if (!containerRef.current || !dev.has3DModel) return;
@@ -634,7 +636,7 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
 
     // Clear all refs
     buildingRef.current = [];
-    refs.current = { roof:[], ac:[], pipes:[], vents:[], windows:[], bio:[], electrical:[], elevator:[], greenRoof:[], solar:[], minisplit:[], coolPavement:[], facadePanels:[], people:[], hvacUnits:[], mechEquip:[], sensors:[] };
+    refs.current = { roof:[], ac:[], heatPumps:[], pipes:[], vents:[], windows:[], windowFrames:[], bio:[], electrical:[], elevator:[], greenRoof:[], solar:[], minisplit:[], coolPavement:[], facadePanels:[], people:[], hvacUnits:[], mechEquip:[], sensors:[] };
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf0f0ed);
@@ -648,20 +650,25 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
     renderer.shadowMap.enabled = true;
     containerRef.current.appendChild(renderer.domElement);
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-    const sun = new THREE.DirectionalLight(0xfff8f0, 2.0);
-    sun.position.set(30, 50, 20); sun.castShadow = true;
+    scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+    const sun = new THREE.DirectionalLight(0xfff8f0, 2.5);
+    sun.position.set(30, 30, 25); sun.castShadow = true;
     sun.shadow.mapSize.width = 2048;
     sun.shadow.mapSize.height = 2048;
     scene.add(sun);
+
+    // Fill light from the side to illuminate walls/windows
+    const fillLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    fillLight.position.set(-30, 20, 40);
+    scene.add(fillLight);
 
     // Ground - concrete/asphalt look
     const groundMat = new THREE.MeshStandardMaterial({ color: 0xc5c5c0, roughness: 0.9 });
     const ground = new THREE.Mesh(new THREE.PlaneGeometry(80,80), groundMat);
     ground.rotation.x = -Math.PI/2; ground.receiveShadow = true; scene.add(ground);
-    const grid = new THREE.GridHelper(80, 40, 0xb8b8b5, 0xc0c0bd);
-    grid.position.y = 0.01;
-    grid.material.opacity = 0.4;
+    const grid = new THREE.GridHelper(80, 40, 0x888888, 0x999999);
+    grid.position.y = 0.02;
+    grid.material.opacity = 0.6;
     grid.material.transparent = true;
     scene.add(grid);
 
@@ -742,43 +749,89 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
     ];
     wings.forEach(wing => addBrickBuilding(new THREE.BoxGeometry(wing.w, bH, wing.d), {x:wing.x, y:bH/2, z:wing.z}));
 
-    // Roof with 20% transparency
+    // Roof with 20% transparency - no overlap between core and wings
     const roofMat = new THREE.MeshStandardMaterial({ color:0x3d3d3d, roughness:0.7, metalness: 0.1, transparent: true, opacity: 0.8 });
-    [[0,0,coreSize+0.4,coreSize+0.4], ...wings.map(w => [w.x,w.z,w.w+0.3,w.d+0.3])].forEach(([x,z,rw,rd]) => {
-      const roof = new THREE.Mesh(new THREE.BoxGeometry(rw, 0.4, rd), roofMat.clone());
-      roof.position.set(x, bH+0.2, z);
-      refs.current.roof.push(roof);
-      scene.add(roof);
-    });
 
-    // Roof mechanicals with 20% transparency
+    // Core roof - exact size
+    const coreRoof = new THREE.Mesh(new THREE.BoxGeometry(coreSize, 0.4, coreSize), roofMat.clone());
+    coreRoof.position.set(0, bH + 0.2, 0);
+    refs.current.roof.push(coreRoof);
+    scene.add(coreRoof);
+
+    // Wing roofs - positioned to not overlap with core
+    // East wing (x > 0): starts at core edge, extends outward
+    const eastRoof = new THREE.Mesh(new THREE.BoxGeometry(wingLen, 0.4, wingW), roofMat.clone());
+    eastRoof.position.set(coreHalf + wingLen/2, bH + 0.2, 0);
+    refs.current.roof.push(eastRoof);
+    scene.add(eastRoof);
+
+    // West wing (x < 0)
+    const westRoof = new THREE.Mesh(new THREE.BoxGeometry(wingLen, 0.4, wingW), roofMat.clone());
+    westRoof.position.set(-(coreHalf + wingLen/2), bH + 0.2, 0);
+    refs.current.roof.push(westRoof);
+    scene.add(westRoof);
+
+    // North wing (z > 0)
+    const northRoof = new THREE.Mesh(new THREE.BoxGeometry(wingW, 0.4, wingLen), roofMat.clone());
+    northRoof.position.set(0, bH + 0.2, coreHalf + wingLen/2);
+    refs.current.roof.push(northRoof);
+    scene.add(northRoof);
+
+    // South wing (z < 0)
+    const southRoof = new THREE.Mesh(new THREE.BoxGeometry(wingW, 0.4, wingLen), roofMat.clone());
+    southRoof.position.set(0, bH + 0.2, -(coreHalf + wingLen/2));
+    refs.current.roof.push(southRoof);
+    scene.add(southRoof);
+
+    // Roof mechanicals with 20% transparency - lined up perpendicular to elevator shafts
     const mechMat = new THREE.MeshStandardMaterial({ color:0x4a4a4a, metalness: 0.3, roughness: 0.6, transparent: true, opacity: 0.8 });
-    [[-2,-2],[2,2],[0,0]].forEach(([mx,mz]) => {
+    [[0,-3],[0,0],[0,3]].forEach(([mx,mz]) => {
       const m = new THREE.Mesh(new THREE.BoxGeometry(1.5,1.2,1.5), mechMat);
       m.position.set(mx, bH+0.8, mz); scene.add(m);
     });
 
-    // Window glass - solid dark blue like solar panels with 20% transparency
+    // Window glass - solid blue like solar panels (no transparency)
     const glassMat = new THREE.MeshStandardMaterial({
-      color: 0x1e3a5a,
-      metalness: 0.8,
-      roughness: 0.2,
-      transparent: true,
-      opacity: 0.8
+      color: 0x7dd3fc,  // Default: light sky blue
+      metalness: 0.85,
+      roughness: 0.15
     });
     const winFrameMat = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 0.5, metalness: 0.7, transparent: true, opacity: 0.8 });
+
+    // Create hollow window frame geometry (frame with cutout for glass)
+    const frameW = 1.1, frameH = 1.5, frameDepth = 0.12;
+    const glassW = 0.9, glassH = 1.3;
+    const frameShape = new THREE.Shape();
+    // Outer rectangle (centered at origin)
+    frameShape.moveTo(-frameW/2, -frameH/2);
+    frameShape.lineTo(frameW/2, -frameH/2);
+    frameShape.lineTo(frameW/2, frameH/2);
+    frameShape.lineTo(-frameW/2, frameH/2);
+    frameShape.lineTo(-frameW/2, -frameH/2);
+    // Inner hole (cutout for glass)
+    const hole = new THREE.Path();
+    hole.moveTo(-glassW/2, -glassH/2);
+    hole.lineTo(-glassW/2, glassH/2);
+    hole.lineTo(glassW/2, glassH/2);
+    hole.lineTo(glassW/2, -glassH/2);
+    hole.lineTo(-glassW/2, -glassH/2);
+    frameShape.holes.push(hole);
+    const frameGeo = new THREE.ExtrudeGeometry(frameShape, { depth: frameDepth, bevelEnabled: false });
+    // Center the extrusion (it extrudes in +Z by default)
+    frameGeo.translate(0, 0, -frameDepth/2);
+
     const winPos = [];
     const addWin = (x,y,z,rotY=0) => {
-      // Window frame
-      const frame = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.5, 0.12), winFrameMat.clone());
-      frame.position.set(x, y, z); frame.rotation.y = rotY;
-      scene.add(frame);
-      // Glass pane - offset slightly from frame based on rotation to prevent z-fighting
-      const glass = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.3, 0.04), glassMat.clone());
-      // For rotY=0, windows face Z axis; for rotY=PI/2, windows face X axis
-      const offsetX = rotY !== 0 ? (x > 0 ? 0.04 : -0.04) : 0;
-      const offsetZ = rotY === 0 ? (z > 0 ? 0.04 : -0.04) : 0;
-      glass.position.set(x + offsetX, y, z + offsetZ);
+      // Window frame with cutout
+      const frame = new THREE.Mesh(frameGeo.clone(), winFrameMat.clone());
+      frame.position.set(x, y, z);
+      frame.rotation.y = rotY;
+      // Rotate to face outward (extrusion is in Z, we need it in the wall direction)
+      frame.rotation.x = 0;
+      refs.current.windowFrames.push(frame); scene.add(frame);
+      // Glass pane - sits inside the frame cutout
+      const glass = new THREE.Mesh(new THREE.BoxGeometry(glassW, glassH, 0.03), glassMat.clone());
+      glass.position.set(x, y, z);
       glass.rotation.y = rotY;
       refs.current.windows.push(glass); scene.add(glass);
       winPos.push({x,y,z,rotY});
@@ -874,11 +927,12 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
       }
     });
 
-    // Elevator shafts (in core) - always visible, structural with 20% transparency
+    // Elevator shafts (in core) - taller, visible in xray view
     const elevMat = new THREE.MeshStandardMaterial({ color:0x525252, roughness:0.6, transparent: true, opacity: 0.8 });
+    const elevHeight = bH + 2;
     [[-3, 0], [3, 0]].forEach(([ex, ez]) => {
-      const shaft = new THREE.Mesh(new THREE.BoxGeometry(2.2, bH+1, 2.2), elevMat);
-      shaft.position.set(ex, bH/2, ez);
+      const shaft = new THREE.Mesh(new THREE.BoxGeometry(2.2, elevHeight, 2.2), elevMat);
+      shaft.position.set(ex, elevHeight/2, ez);
       refs.current.elevator.push(shaft);
       scene.add(shaft);
     });
@@ -930,6 +984,25 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
         }
         ac.visible = false;
         refs.current.ac.push(ac); scene.add(ac);
+      }
+    });
+
+    // Window heat pump units (60% of windows, different pattern than AC) - light blue, slightly larger
+    const heatPumpMat = new THREE.MeshStandardMaterial({ color: 0x93c5fd, metalness: 0.5, transparent: true, opacity: 0.8 }); // Light blue
+    const hpSeed = (i) => { const x = Math.sin(i*11+29)*10000; return x - Math.floor(x); }; // Different seed pattern
+    winPos.forEach((wp, i) => {
+      if (hpSeed(i) < 0.6) {
+        // Slightly larger than AC: 0.65 x 0.38 x 0.35 vs 0.55 x 0.3 x 0.3
+        const hp = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.38, 0.35), heatPumpMat.clone());
+        const off = 0.24;
+        if (Math.abs(wp.rotY) < 0.1) {
+          hp.position.set(wp.x, wp.y - 0.85, wp.z + (wp.z > 0 ? off : -off));
+        } else {
+          hp.position.set(wp.x + (wp.x > 0 ? off : -off), wp.y - 0.85, wp.z);
+          hp.rotation.y = Math.PI / 2;
+        }
+        hp.visible = false;
+        refs.current.heatPumps.push(hp); scene.add(hp);
       }
     });
 
@@ -1342,7 +1415,7 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
 
       // Clear refs
       buildingRef.current = [];
-      refs.current = { roof:[], ac:[], pipes:[], vents:[], windows:[], bio:[], electrical:[], elevator:[], greenRoof:[], solar:[], minisplit:[], coolPavement:[] };
+      refs.current = { roof:[], ac:[], heatPumps:[], pipes:[], vents:[], windows:[], windowFrames:[], bio:[], electrical:[], elevator:[], greenRoof:[], solar:[], minisplit:[], coolPavement:[], facadePanels:[], people:[], hvacUnits:[], mechEquip:[], sensors:[] };
     };
   }, [dev.has3DModel, dev.id]);
 
@@ -1354,9 +1427,21 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
     const r = refs.current;
     const isX = viewMode === 'xray', isS = viewMode === 'site';
 
+    // Check for advanced envelope package
+    const hasAdvancedEnvelope = activeRetrofits.includes('advanced_insulation');
+
     buildingRef.current.forEach(m => {
-      if (m.material) { m.material.transparent = isX; m.material.opacity = isX ? 0.12 : 1; m.material.needsUpdate = true; }
+      if (m.material) {
+        m.material.transparent = isX;
+        m.material.opacity = isX ? 0.12 : 0.8;
+        // Change brick color when advanced envelope is selected (lighter = insulated/wrapped)
+        if (prevEnvelopeRef.current !== hasAdvancedEnvelope) {
+          m.material.color.setHex(hasAdvancedEnvelope ? 0xa89080 : 0x7d5a4a);
+        }
+        m.material.needsUpdate = true;
+      }
     });
+    prevEnvelopeRef.current = hasAdvancedEnvelope;
 
     // Elevator shafts - always visible but transparent in xray
     r.elevator?.forEach(e => {
@@ -1386,17 +1471,39 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
     const ventsActive = activeRetrofits.includes('ventilation');
     r.vents?.forEach(v => { v.visible = ventsActive && isX; });
 
-    // Windows - change color when envelope retrofit is active
-    const hasEnv = activeRetrofits.includes('envelope') || activeRetrofits.includes('triple_pane');
-    r.windows?.forEach(w => {
-      if (hasEnv) {
-        // Upgraded windows - slightly teal tint to indicate new efficient windows
-        w.material.color.setHex(0x1e5a5a);
-      } else {
-        // Default window color
-        w.material.color.setHex(0x1e3a5a);
-      }
-    });
+    // Windows - change color when window retrofit is active (solid colors like solar panels)
+    // Only update if state has changed to prevent flashing
+    const hasEnvelope = activeRetrofits.includes('envelope');
+    const hasTriplePane = activeRetrofits.includes('triple_pane');
+    const prevState = prevWindowStateRef.current;
+    if (prevState.hasEnvelope !== hasEnvelope || prevState.hasTriplePane !== hasTriplePane) {
+      prevWindowStateRef.current = { hasEnvelope, hasTriplePane };
+      // Update glass color - all lighter shades
+      r.windows?.forEach(w => {
+        if (hasTriplePane) {
+          // Triple-pane windows - very light ice blue (premium upgrade)
+          w.material.color.setHex(0xe0f2fe);
+        } else if (hasEnvelope) {
+          // Double-pane windows - light blue (standard upgrade)
+          w.material.color.setHex(0xbae6fd);
+        } else {
+          // Default old windows - light sky blue
+          w.material.color.setHex(0x7dd3fc);
+        }
+        w.material.needsUpdate = true;
+      });
+      // Update frame color - white for upgraded windows, dark for default
+      r.windowFrames?.forEach(f => {
+        if (hasTriplePane || hasEnvelope) {
+          // White frames for new windows
+          f.material.color.setHex(0xf5f5f5);
+        } else {
+          // Default dark frames
+          f.material.color.setHex(0x2a2a2a);
+        }
+        f.material.needsUpdate = true;
+      });
+    }
 
     // Bioswales - always visible when active (site elements always show)
     const bioActive = activeRetrofits.includes('bioswale');
@@ -1411,8 +1518,12 @@ const Viewer3D = ({ dev, activeRetrofits, viewMode, setViewMode }) => {
     r.solar?.forEach(s => { s.visible = hasSolar; });
 
     // Mini-splits - visible in exterior (not xray since internal)
-    const hasMinisplit = activeRetrofits.includes('minisplit') || activeRetrofits.includes('window_heat_pump');
+    const hasMinisplit = activeRetrofits.includes('minisplit');
     r.minisplit?.forEach(m => { m.visible = hasMinisplit && !isX; });
+
+    // Window heat pumps - visible in exterior (light blue units under windows)
+    const hasHeatPumps = activeRetrofits.includes('window_heat_pump');
+    r.heatPumps?.forEach(hp => { hp.visible = hasHeatPumps && !isX; });
 
     // (Existing mature trees are always visible as site context)
 
@@ -1618,11 +1729,16 @@ const NeighborhoodViewer3D = ({ dev, activeRetrofits }) => {
     renderer.shadowMap.enabled = true;
     containerRef.current.appendChild(renderer.domElement);
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-    const sun = new THREE.DirectionalLight(0xfff8f0, 1.8);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+    const sun = new THREE.DirectionalLight(0xfff8f0, 2.5);
     sun.position.set(50, 80, 30);
     sun.castShadow = true;
     scene.add(sun);
+
+    // Fill light from the side to illuminate walls/windows
+    const fillLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    fillLight.position.set(-50, 30, 60);
+    scene.add(fillLight);
 
     // Ground plane - light tan/beige base (matching site plan background)
     const groundMat = new THREE.MeshStandardMaterial({ color: 0xe8dcc8, roughness: 0.9 });
@@ -2133,10 +2249,10 @@ const PackageSelector = ({ selectedPackage, onSelect, dev, showCustomPanel, acti
             <div>
               <div style={{ fontSize: '10px', color: colors.text.muted, marginBottom: '12px', letterSpacing: '0.1em' }}>INVESTMENT*</div>
               <div style={{ fontSize: '32px', fontWeight: '700', color: currentPkg.color, marginBottom: '4px', ...S.mono }}>
-                ${(calcPackageCost(currentPkg, dev) / 1000000).toFixed(1)}M*
+                ${(currentPkg.costPerUnit * dev.unit_count / 1000000).toFixed(1)}M*
               </div>
               <div style={{ fontSize: '12px', color: colors.text.muted, marginBottom: '16px' }}>
-                ${calcPackageCostPerUnit(currentPkg, dev).toLocaleString()}/unit*
+                ${currentPkg.costPerUnit.toLocaleString()}/unit*
               </div>
               <div style={{ display: 'flex', gap: '24px' }}>
                 <div>
@@ -2322,9 +2438,12 @@ const Timeline = ({ dev, nta, complaints, demo, activeRetrofits }) => {
     if (improvementScores.social >= 1) improvedDims.add('social');
   }
 
-  // Cost of inaction calculation
-  const costPerYear = Math.round(dev.unit_count * 850); // ~$850/unit/year in increased costs
-  const costBy2050 = costPerYear * 24;
+  // Cost of inaction calculation (matches PDF calculation)
+  const emergencyRepairsPerYear = Math.round((complaints.total_5y / 5) * 250); // $250 per complaint
+  const healthCostPerYear = Math.round(demo.pct_over_65 / 100 * dev.unit_count * 1500); // $1500 per elderly unit
+  const energyWastePerYear = Math.round(dev.unit_count * 800); // $800/unit inefficiency
+  const costPerYear = emergencyRepairsPerYear + healthCostPerYear + energyWastePerYear;
+  const costBy2050 = costPerYear * 25;
 
   return (
     <div style={{ marginBottom:'24px', width: '100%' }}>
@@ -2887,9 +3006,9 @@ const DataBreakdown = ({ dev, complaints, nta }) => {
               <div style={{ background:'#0a0a0a', padding:'12px', borderRadius:'4px', border:'1px solid #22c55e', marginBottom:'10px' }}>
                 <div style={{ fontSize:'9px', color:'#22c55e', marginBottom:'6px', fontWeight:'600' }}>THERMAL DIMENSION</div>
                 <div style={{ fontSize:'10px', color:'#d4d4d4', lineHeight:1.6 }}>
-                  <strong>Cooling Systems</strong> (VRF/Heat Pumps): -18°F to -23°F indoor reduction<br/>
-                  <strong>Envelope Package</strong> (insulation, windows): -5°F to -11°F reduction<br/>
-                  <strong>Site Improvements</strong> (trees, reflective surfaces): -4°F to -6°F ambient<br/>
+                  <strong>Cooling Systems</strong> (VRF/Heat Pumps): -12°F to -16°F indoor reduction<br/>
+                  <strong>Envelope Package</strong> (insulation, windows): -2°F to -5°F reduction<br/>
+                  <strong>Site Improvements</strong> (trees, reflective surfaces): -1°F to -2°F ambient<br/>
                   <div style={{ fontSize:'9px', color:'#22c55e', marginTop:'6px' }}>
                     → Combined: Can maintain indoor temps ≤85°F even with 94°F outdoor
                   </div>
@@ -5066,9 +5185,9 @@ const StoryMode = ({ dev, nta, complaints, onBack, onSwitchToDashboard }) => {
             transition:'all 1s ease-out 0.4s'
           }}>
             {[
-              { name: 'Emergency', cost: '$4K', temp: '-18°F', desc: 'Band-aid fixes', color: '#fbbf24' },
-              { name: 'Upgrade', cost: '$15K', temp: '-30°F', desc: 'Real improvement', color: '#3b82f6' },
-              { name: 'Climate Ready', cost: '$45K', temp: '-40°F', desc: 'Full alignment', color: '#22c55e' }
+              { name: 'Emergency', cost: '$4K', temp: '-15°F', desc: 'Band-aid fixes', color: '#fbbf24' },
+              { name: 'Upgrade', cost: '$15K', temp: '-18°F', desc: 'Real improvement', color: '#3b82f6' },
+              { name: 'Climate Ready', cost: '$23K', temp: '-22°F', desc: 'Full alignment', color: '#22c55e' }
             ].map((pkg, i) => (
               <div key={i} style={{
                 padding:'20px 16px',
@@ -5083,6 +5202,18 @@ const StoryMode = ({ dev, nta, complaints, onBack, onSwitchToDashboard }) => {
                 <div style={{ fontSize:'10px', color:'#a3a3a3' }}>{pkg.desc}</div>
               </div>
             ))}
+          </div>
+
+          {/* Cost disclaimer */}
+          <div style={{
+            fontSize:'10px',
+            color:'#a3a3a3',
+            marginBottom:'24px',
+            opacity: showElements.main ? 1 : 0,
+            transition:'all 0.8s ease-out 0.5s',
+            fontStyle:'italic'
+          }}>
+            *Cost estimates are approximate projections based on RSMeans 2024 construction data, NYSERDA multifamily program guidelines, and NYC agency retrofit pilots. Actual costs vary by building condition, contractor, and market factors.
           </div>
 
           {/* CTA */}
@@ -5439,10 +5570,6 @@ export default function App() {
     const pkg = retrofitPackages.find(p => p.id === packageId);
     if (pkg) {
       setActiveRetrofits(pkg.retrofits);
-      // Auto-switch to view for first retrofit in package
-      if (pkg.retrofits.length > 0) {
-        autoSwitchView(pkg.retrofits[0]);
-      }
     } else {
       setActiveRetrofits([]);
     }
@@ -5651,16 +5778,22 @@ export default function App() {
                           <div>
                             <div style={{ fontSize: '8px', color: colors.text.muted, ...S.mono }}>TEMP</div>
                             <div style={{ fontSize: '18px', fontWeight: '700', color: colors.accent.green }}>
-                              -{retrofits.filter(r => activeRetrofits.includes(r.id)).reduce((s, r) => s + Math.abs(r.tempDelta), 0)}°F
+                              -{(() => {
+                                const pkg = retrofitPackages.find(p => p.id === selectedPackage);
+                                return pkg ? pkg.tempReduction : retrofits.filter(r => activeRetrofits.includes(r.id)).reduce((s, r) => s + Math.abs(r.tempDelta), 0);
+                              })()}°F
                             </div>
                           </div>
                           <div>
                             <div style={{ fontSize: '8px', color: colors.text.muted, ...S.mono }}>COST</div>
                             <div style={{ fontSize: '18px', fontWeight: '700', color: colors.text.primary }}>
-                              {fmt(activeRetrofits.reduce((sum, id) => {
-                                const r = retrofits.find(x => x.id === id);
-                                return sum + (r ? calcCost(r, dev) : 0);
-                              }, 0))}
+                              {(() => {
+                                const pkg = retrofitPackages.find(p => p.id === selectedPackage);
+                                return pkg ? fmt(pkg.costPerUnit * dev.unit_count) : fmt(activeRetrofits.reduce((sum, id) => {
+                                  const r = retrofits.find(x => x.id === id);
+                                  return sum + (r ? calcCost(r, dev) : 0);
+                                }, 0));
+                              })()}
                             </div>
                           </div>
                         </div>
@@ -5912,10 +6045,10 @@ export default function App() {
                         <div>
                           <div style={{ fontSize: '9px', color: colors.text.muted, marginBottom: '6px', ...S.mono }}>INVESTMENT</div>
                           <div style={{ fontSize: '24px', fontWeight: '700', color: colors.accent.green, marginBottom: '2px' }}>
-                            ${(calcPackageCost(pkg, dev) / 1000000).toFixed(1)}M*
+                            ${(pkg.costPerUnit * dev.unit_count / 1000000).toFixed(1)}M*
                           </div>
                           <div style={{ fontSize: '10px', color: colors.text.muted, marginBottom: '12px' }}>
-                            ${calcPackageCostPerUnit(pkg, dev).toLocaleString()}/unit*
+                            ${pkg.costPerUnit.toLocaleString()}/unit*
                           </div>
 
                           <div style={{ display: 'flex', gap: '12px' }}>
@@ -6057,11 +6190,13 @@ export default function App() {
             flexShrink: 0
           }}>
             {(() => {
-              const tempReduction = retrofits.filter(r => activeRetrofits.includes(r.id)).reduce((sum, r) => sum + Math.abs(r.tempDelta), 0);
-              const totalCost = activeRetrofits.reduce((sum, id) => {
+              const pkg = retrofitPackages.find(p => p.id === selectedPackage);
+              const tempReduction = pkg ? pkg.tempReduction : retrofits.filter(r => activeRetrofits.includes(r.id)).reduce((sum, r) => sum + Math.abs(r.tempDelta), 0);
+              const totalCost = pkg ? pkg.costPerUnit * dev.unit_count : activeRetrofits.reduce((sum, id) => {
                 const r = retrofits.find(x => x.id === id);
                 return sum + (r ? calcCost(r, dev) : 0);
               }, 0);
+              const costPerUnit = pkg ? pkg.costPerUnit : (dev.unit_count > 0 ? Math.round(totalCost / dev.unit_count) : 0);
               const costPerBuilding = dev.building_count > 0 ? totalCost / dev.building_count : 0;
               const retrofitsByCategory = {};
               activeRetrofits.forEach(id => {
@@ -6081,7 +6216,7 @@ export default function App() {
 
               // Calculate projected temps
               const peakIndoorNoRetrofit = 90;
-              const peakIndoorWithRetrofit = Math.max(72, peakIndoorNoRetrofit - tempReduction);
+              const peakIndoorWithRetrofit = peakIndoorNoRetrofit - tempReduction;
 
               return (
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 420px', gap: '12px', alignItems: 'stretch' }}>
@@ -6135,7 +6270,7 @@ export default function App() {
                         {activeRetrofits.length > 0 ? `$${(totalCost / 1000000).toFixed(1)}M*` : '$0'}
                       </div>
                       {activeRetrofits.length > 0 && (
-                        <div style={{ fontSize: '11px', color: colors.text.muted }}>${Math.round(totalCost / dev.unit_count).toLocaleString()}/unit*</div>
+                        <div style={{ fontSize: '11px', color: colors.text.muted }}>${costPerUnit.toLocaleString()}/unit*</div>
                       )}
                     </div>
 
@@ -6291,32 +6426,34 @@ export default function App() {
                                 ? `$${r.cost_low}-${r.cost_high}/sqft`
                                 : `$${r.cost_low.toLocaleString()}`;
                               return (
-                                <button
-                                  key={r.id}
-                                  onClick={() => toggle(r.id)}
-                                  style={{
-                                    padding: '12px',
-                                    background: isActive ? colors.bg.dark : colors.bg.secondary,
-                                    border: `2px solid ${isActive ? r.color : colors.border.subtle}`,
-                                    color: isActive ? colors.text.inverse : colors.text.primary,
-                                    cursor: 'pointer',
-                                    textAlign: 'left',
-                                    borderRadius: '6px',
-                                    transition: 'all 0.15s'
-                                  }}
-                                >
-                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
-                                    <div style={{ fontSize: '12px', fontWeight: '600' }}>{r.name}</div>
-                                    {isActive && <span style={{ color: r.color, fontSize: '14px' }}>✓</span>}
-                                  </div>
-                                  <div style={{ fontSize: '10px', color: isActive ? 'rgba(255,255,255,0.7)' : colors.text.muted, marginBottom: '8px', lineHeight: 1.4 }}>
-                                    {r.desc.substring(0, 80)}...
-                                  </div>
-                                  <div style={{ display: 'flex', gap: '12px', fontSize: '10px', ...S.mono }}>
-                                    <span style={{ color: isActive ? 'rgba(255,255,255,0.8)' : colors.text.secondary }}>{costBreakdown}</span>
-                                    <span style={{ color: isActive ? colors.accent.green : colors.status.aligned }}>-{Math.abs(r.tempDelta)}°F</span>
-                                  </div>
-                                </button>
+                                <Tip key={r.id} text={`${r.desc}\n\nSource: ${r.source || 'Industry estimates'}`}>
+                                  <button
+                                    onClick={() => toggle(r.id)}
+                                    style={{
+                                      padding: '12px',
+                                      background: isActive ? colors.bg.dark : colors.bg.secondary,
+                                      border: `2px solid ${isActive ? r.color : colors.border.subtle}`,
+                                      color: isActive ? colors.text.inverse : colors.text.primary,
+                                      cursor: 'pointer',
+                                      textAlign: 'left',
+                                      borderRadius: '6px',
+                                      transition: 'all 0.15s',
+                                      width: '100%'
+                                    }}
+                                  >
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                                      <div style={{ fontSize: '12px', fontWeight: '600' }}>{r.name}</div>
+                                      {isActive && <span style={{ color: r.color, fontSize: '14px' }}>✓</span>}
+                                    </div>
+                                    <div style={{ fontSize: '10px', color: isActive ? 'rgba(255,255,255,0.7)' : colors.text.muted, marginBottom: '8px', lineHeight: 1.4 }}>
+                                      {r.desc.substring(0, 80)}...
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '12px', fontSize: '10px', ...S.mono }}>
+                                      <span style={{ color: isActive ? 'rgba(255,255,255,0.8)' : colors.text.secondary }}>{costBreakdown}</span>
+                                      <span style={{ color: isActive ? colors.accent.green : colors.status.aligned }}>-{Math.abs(r.tempDelta)}°F</span>
+                                    </div>
+                                  </button>
+                                </Tip>
                               );
                             })}
                           </div>
@@ -6691,6 +6828,14 @@ export default function App() {
               </div>
 
               {/* PAGE 5: Financial */}
+              {(() => {
+                // Cost of inaction calculation (matches dashboard)
+                const pdfEmergencyRepairs = Math.round(((complaintInfo.total_5y || 0) / 5) * 250);
+                const pdfHealthCost = Math.round((demoInfo.pct_over_65 || 0) / 100 * dev.unit_count * 1500);
+                const pdfEnergyWaste = Math.round(dev.unit_count * 800);
+                const pdfCostOfInaction25Years = (pdfEmergencyRepairs + pdfHealthCost + pdfEnergyWaste) * 25;
+
+                return (
               <div style={pageStyle}>
                 <div style={{ fontSize: '9px', color: '#737373', letterSpacing: '0.1em', marginBottom: '8px', ...S.mono }}>CLIM-ALIGN · {dev.name.toUpperCase()}</div>
                 <h2 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '24px' }}>Financial Analysis</h2>
@@ -6706,7 +6851,7 @@ export default function App() {
                   <div style={{ padding: '20px', background: '#450a0a', border: '2px solid #dc2626' }}>
                     <div style={{ fontSize: '10px', color: '#fca5a5', marginBottom: '6px', ...S.mono }}>PAY BY 2050*</div>
                     <div style={{ fontSize: '28px', fontWeight: '700', color: '#ef4444' }}>
-                      ${(retrofitPackages[2].costPerUnit * dev.unit_count * 2.5 / 1000000).toFixed(1)}M*
+                      ${(pdfCostOfInaction25Years / 1000000).toFixed(1)}M*
                     </div>
                     <div style={{ fontSize: '10px', color: '#a3a3a3', marginTop: '8px' }}>Emergency + health costs*</div>
                   </div>
@@ -6730,6 +6875,8 @@ export default function App() {
                   <div style={{ fontSize: '9px', color: '#525252', ...S.mono }}>Page 5</div>
                 </div>
               </div>
+                );
+              })()}
 
               {/* PAGE 6: Sources */}
               <div style={pageStyle}>
