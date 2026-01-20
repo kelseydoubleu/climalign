@@ -394,48 +394,80 @@ const S = {
 // ============================================
 const Tip = ({ children, text }) => {
   const [show, setShow] = useState(false);
-  const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 });
+  const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0, caretLeft: 0 });
   const ref = useRef(null);
 
   const onEnter = () => {
     setShow(true);
     if (ref.current) {
       const rect = ref.current.getBoundingClientRect();
-      const tooltipWidth = 240;
-      const tooltipHeight = 100; // Approximate
+      const tooltipWidth = 260;
+      const gap = 10;
 
-      // Calculate position
-      let top, left;
+      // Position: bottom of tooltip will be at (rect.top - gap)
+      // We use transform: translateY(-100%) to achieve this
+      let top = rect.top - gap;
+      let left = rect.left + rect.width / 2 - tooltipWidth / 2;
 
-      // Vertical: prefer above, fallback to below
-      if (rect.top > tooltipHeight + 10) {
-        top = rect.top - tooltipHeight - 8;
-      } else {
-        top = rect.bottom + 8;
-      }
-
-      // Horizontal: center, but constrain to viewport
-      left = rect.left + rect.width / 2 - tooltipWidth / 2;
+      // Keep within viewport horizontally
       if (left < 10) left = 10;
       if (left + tooltipWidth > window.innerWidth - 10) {
         left = window.innerWidth - tooltipWidth - 10;
       }
 
-      setTooltipPos({ top, left });
+      // Calculate caret position relative to tooltip (center of the card)
+      const cardCenter = rect.left + rect.width / 2;
+      const caretLeft = cardCenter - left;
+
+      setTooltipPos({ top, left, caretLeft });
     }
   };
 
   return (
-    <span ref={ref} style={{ position: 'relative' }} onMouseEnter={onEnter} onMouseLeave={() => setShow(false)}>
+    <span ref={ref} style={{ position: 'relative', display: 'block' }} onMouseEnter={onEnter} onMouseLeave={() => setShow(false)}>
       {children}
       {show && (
         <div style={{
           position: 'fixed',
           top: tooltipPos.top,
           left: tooltipPos.left,
-          padding: '10px 12px', background: '#262626', border: '1px solid #404040',
-          fontSize: '11px', color: '#e0e0e0', width: '260px', lineHeight: 1.6, zIndex: 9999, borderRadius: '6px', boxShadow: '0 4px 12px rgba(0,0,0,0.5)', whiteSpace: 'pre-line', ...S.mono
-        }}>{text}</div>
+          transform: 'translateY(-100%)',
+          padding: '10px 12px',
+          background: '#262626',
+          border: '1px solid #404040',
+          fontSize: '11px',
+          color: '#e0e0e0',
+          width: '260px',
+          lineHeight: 1.6,
+          zIndex: 9999,
+          borderRadius: '6px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+          whiteSpace: 'pre-line',
+          ...S.mono
+        }}>
+          {/* Caret pointing down */}
+          <div style={{
+            position: 'absolute',
+            bottom: '-6px',
+            left: tooltipPos.caretLeft - 6,
+            width: 0,
+            height: 0,
+            borderLeft: '6px solid transparent',
+            borderRight: '6px solid transparent',
+            borderTop: '6px solid #404040',
+          }} />
+          <div style={{
+            position: 'absolute',
+            bottom: '-5px',
+            left: tooltipPos.caretLeft - 5,
+            width: 0,
+            height: 0,
+            borderLeft: '5px solid transparent',
+            borderRight: '5px solid transparent',
+            borderTop: '5px solid #262626',
+          }} />
+          {text}
+        </div>
       )}
     </span>
   );
